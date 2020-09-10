@@ -46,19 +46,36 @@
                                     </div>
                                 </div>
                                 <?php
-                                $arr = array("Reports", "Analytics", "Export", "Storage");
-                                //var_dump($arr);
+                                $array = [
+                                    [
+                                        'title' => 'Reports' ,
+                                        'tags' => 'reports file'
+                                    ],
+                                     
+                                    [
+                                        'title' => 'Analytics' ,
+                                        'tags' => 'analytics graphs'
+                                    ],
+                                    
+                                    [
+                                        'title' => 'Export' ,
+                                        'tags' => 'export download'
+                                    ],
+                                                                        
+                                    [
+                                        'title' => 'Storage' ,
+                                        'tags' => 'storage'
+                                    ],
+                                ];
                                 ?>
                                 <ul id="js-list-msg" class="list-group px-2 pb-2 js-list-filter">
-                                        <?php
-                                        foreach ($arr as $value) {
-                                            echo ('<li class="list-group-item">');   
-                                            echo ('<span data-filter-tags="export download">');
-                                            echo $value;
-                                            echo ('</span>'); 
-                                            echo ('</li>');
-                                        }
-                                        ?>
+                                <?php foreach ($array as $arr): ?>
+                                    <li class="list-group-item">
+                                        <span data-filter-tags="<?php echo $arr['tags']; ?>">
+                                        <?php echo $arr['title']; ?>
+                                        </span>
+                                    </li>    
+                                <?php endforeach; ?>
                                 </ul>
                                 <div class="filter-message js-filter-message mt-0 fs-sm"></div>
                             </div>
