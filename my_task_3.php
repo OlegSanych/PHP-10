@@ -31,25 +31,39 @@
                         </div>
                     </div>
                     <?php
-                    $arr = array("home" => "Главная", "php" => "PHP", "functions" => "Функции");
-                    //var_dump($arr);
+                    $array = [
+                        [
+                        "title" => "Главная",
+                        "href" => "http://php-10/home.html",
+                        "link" => true
+                        ],
+                                                [
+                        "title" => "PHP",
+                        "href" => "http://php-10/php.html",
+                        "link" => true
+                        ],
+                        [
+                        "title" => "Функции",
+                        "href" => "http://php-10/functions.html",
+                        "link" => false
+                        ],
+                    ];
+                    //var_dump($array);
                     ?>
                     <div class="panel-container show">
                         <div class="panel-content">
                             <ol class="breadcrumb page-breadcrumb">
-                                <?php
-                                    foreach ($arr as $key => $value) {     
-                                    if ($key != "functions") {
-                                        echo('<li class="breadcrumb-item"><a href=" ">');
-                                        echo $value;
-                                        echo ('</a></li>'); 
-                                    } else {
-                                        echo('<li class="breadcrumb-item active">');
-                                        echo $value;
-                                        echo ('</a></li>'); 
-                                    }
-                                }
-                                ?>
+                                <?php foreach ($array as $arr) : ?>     
+                                    <?php if ($arr['link']) : ?>
+                                            <li class="breadcrumb-item"><a href="<?php echo $arr['href']; ?>">
+                                            <?php echo $arr['title']; ?>
+                                            </a></li> 
+                                        <?php else : ?>
+                                            <li class="breadcrumb-item active">
+                                            <?php echo $arr['title']; ?>
+                                            </a></li> 
+                                    <?php endif;?>
+                                <?php endforeach;?>
                             </ol>
                         </div>
                     </div>
