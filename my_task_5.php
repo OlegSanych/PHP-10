@@ -32,7 +32,7 @@
                     </div>
                     <?php 
                     $pill = [
-                        $pill = [
+                        [
                         'name' => 'Sunny A. (UI/UX Expert)',
                         'prof' => 'Lead Author',
                         'photo' => 'img/demo/authors/sunny.png',
@@ -40,7 +40,7 @@
                         'linksocial' => 'https://twitter.com/@myplaneticket',
                         'email' => 'a.sunny@mail.dev',
                         ],
-                        $pill = [
+                        [
                         'name' => 'Jos K. (ASP.NET Developer)',
                         'prof' => 'Partner & Contributor',
                         'photo' => 'img/demo/authors/josh.png',
@@ -48,7 +48,7 @@
                         'linksocial' => 'https://twitter.com/@atlantez',
                         'email' => 'k.jos@mail.dev',
                         ],
-                        $pill = [
+                        [
                         'name' => 'Jovanni L. (PHP Developer)',
                         'prof' => 'Partner & Contributor',
                         'photo' => 'img/demo/authors/jovanni.png',
@@ -56,7 +56,7 @@
                         'linksocial' => 'https://twitter.com/@lodev09',
                         'email' => 'l.jovanni@mail.dev',
                         ],
-                        $pill = [
+                        [
                         'name' => 'Roberto R. (Rails Developer)',
                         'prof' => 'Partner & Contributor',
                         'photo' => 'img/demo/authors/roberto.png',
@@ -70,23 +70,21 @@
                     <div class="panel-container show">
                         <div class="panel-content">
                            <div class="d-flex flex-wrap demo demo-h-spacing mt-3 mb-3">
-                            <?php
-                            foreach ($pill as $pill) {
-                            echo '<div class="rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">';
-                            echo '<img src="'; echo $pill['photo']; echo'"'; echo 'alt="Sunny A." class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">';
-                                echo '<div class="ml-2 mr-3">';
-                                    echo '<h5 class="m-0">';
-                                        echo $pill['name'];
-                                        echo '<small class="m-0 fw-300">';
-                                            echo $pill['prof'];
-                                        echo '</small>';
-                                    echo '</h5>';
-                                    echo '<a href="https://twitter.com/'; echo $pill['social']; echo '"'; echo' class="text-info fs-sm" target="_blank">'; echo $pill['social']; echo '</a> -
-                                    <a href="mailto:'; echo $pill['email']; echo '" class="text-info fs-sm" target="_blank" title="Contact'; echo $pill['name']; echo '"><i class="fal fa-envelope"></i></a>';
-                                echo '</div>';
-                            echo '</div>';
-                            }
-                            ?>
+                            <?php foreach ($pill as $pill) : ?>
+                            <div class="rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
+                            <img src="<?php echo $pill['photo']; ?>" alt="Sunny A." class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
+                                <div class="ml-2 mr-3">
+                                    <h5 class="m-0">
+                                        <?php echo $pill['name']; ?>
+                                        <small class="m-0 fw-300">
+                                            <?php echo $pill['prof']; ?>
+                                        </small>
+                                    </h5>
+                                    <a href="https://twitter.com/ <?php echo $pill['social'];  ?>" class="text-info fs-sm" target="_blank"> <?php echo $pill['social']; ?></a>
+                                    <a href="mailto: <?php echo $pill['email']; ?>" class="text-info fs-sm" target="_blank" title="Contact <?php echo $pill['name']; ?>"><i class="fal fa-envelope"></i></a>
+                                </div>
+                            </div>
+                            <?endforeach?>
                         </div>
                         </div>
                     </div>

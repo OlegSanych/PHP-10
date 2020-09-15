@@ -74,20 +74,18 @@
                     ?>
                     <div class="panel-container show">
                         <div class="panel-content">
-                            <?php 
-                            foreach ($progressbar as $progressbar) {
-                            echo '<div class="'; echo $progressbar['ContClass']; echo'">';
-                            echo $progressbar['textName'];
-                            echo '<span class="'; echo $progressbar['textClass']; echo'">';
-                            echo $progressbar['textValue'];
-                            echo '</span>';
-                            echo '</div>';
-                            echo '<div class="'; echo $progressbar['barClass']; echo'">';
-                            echo '<div class="'; echo $progressbar['barBgClass']; echo'"'; echo'role="progressbar" style="width:'; echo $progressbar['width']; echo'%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">';
-                            echo '</div>';
-                            echo '</div>';
-                            }
-                            ?>
+                            <?php foreach ($progressbar as $progressbar) : ?>
+                                <div class="<?php echo $progressbar['ContClass']; ?>">
+                                <?php echo $progressbar['textName']; ?>
+                                <span class="<?php echo $progressbar['textClass']; ?>">
+                                <?php echo $progressbar['textValue']; ?>
+                                </span>
+                                </div>
+                                <div class="<?php echo $progressbar['barClass']; ?>">
+                                <div class="<?php echo $progressbar['barBgClass']; ?>" role="progressbar" style="width:<?php echo $progressbar['width']; echo'%' ?>" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                                </div>
+                            <?php endforeach?>
                         </div>
                     </div>
                 </div>
