@@ -39,50 +39,46 @@
                             <?php
                             //Подключение к БД
                             $host = 'localhost';
-                            $database = 'bd_my_task_8';
+                            $db = 'my_tasks';
                             $user = 'root';
-                            $password = '';
+                            $pass = 'root';
+                            $charset = 'utf8';
                             
-                            $link = mysqli_connect($host, $user, $password, $database) or die("Ошибка " . mysqli_error($link));
-                            //Получение данных из БД
-                            $sql = 'SELECT * FROM users';
-                            $result = mysqli_query($link, $sql) or die("Ошибка " . mysqli_error($link));
-                            //Объявление массива куда собираем полученные данные
-                            $users = array();
-                            while ($data = mysqli_fetch_assoc($result)) {
-                                $users[] = $data;
-                            }
-                            //var_dump($users);
-                            mysqli_close($link); 
+                            $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+                            $opt = [
+                                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                                PDO::ATTR_EMULATE_PREPARES   => false,
+                            ];
+                            $pdo = new PDO($dsn, $user, $pass, $opt);
+                            $stmt = $pdo->query('SELECT * FROM users_table');
                             ?>
-                            <?php
-                            echo '<table class="table m-0">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>';
-                                    foreach ($users as $users) {
-                                        echo '<tr>';
-                                            echo '<th scope="row">'; echo $users['id']; echo '</th>';
-                                            echo '<td>'; echo $users['firstName']; echo '</td>';
-                                            echo '<td>'; echo $users['lastName']; echo '</td>';
-                                            echo '<td>'; echo $users['userName']; echo '</td>';
-                                            echo '<td>';
-                                                echo '<a href="show.php?id='; echo $users['id']; echo '" class="btn btn-info">Редактировать</a>';
-                                                echo '<a href="edit.php?id='; echo $users['id']; echo '" class="btn btn-warning">Изменить</a>';
-                                                echo '<a href="delete.php?id='; echo $users['id']; echo '" class="btn btn-danger">Удалить</a>';
-                                            echo '</td>';
-                                        echo '</tr>'; 
-                                    }
-                                    echo '</tbody>';
-                            echo '</table>';   
-                            ?>    
+                            <table class="table m-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Username</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <?php foreach ($stmt as $users) : ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $users['id']; ?></th>
+                                        <th scope="row"><?php echo $users['firstname']; ?></th>
+                                        <th scope="row"><?php echo $users['lastname']; ?></th>
+                                        <th scope="row"><?php echo $users['username']; ?></th>
+                                    <td>
+                                        <a href="show.php?id=<?php echo $users['id']; ?>" class="btn btn-info">Просмотреть</a>
+                                        <a href="edit.php?id=<?php echo $users['id']; ?>" class="btn btn-warning">Изменить</a>
+                                        <a href="delete.php?id=<?php echo $users['id']; ?>" class="btn btn-danger">Удалить</a>
+                                    </td>
+                                    </tr> 
+                                <?php endforeach ?>
+                                    </tbody>
+                            </table>      
                             </div>
                         </div>
                     </div>
