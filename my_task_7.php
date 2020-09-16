@@ -37,43 +37,39 @@
                             <?php
                             //Подключение к БД
                             $host = 'localhost';
-                            $database = 'bd_my_task_7';
+                            $db = 'my_tasks';
                             $user = 'root';
-                            $password = '';
+                            $pass = 'root';
+                            $charset = 'utf8';
                             
-                            $link = mysqli_connect($host, $user, $password, $database) or die("Ошибка " . mysqli_error($link));
-                            //Получение данных из БД
-                            $sql = 'SELECT * FROM users';
-                            $result = mysqli_query($link, $sql) or die("Ошибка " . mysqli_error($link));
-                            //Объявление массива куда собираем полученные данные
-                            $pill = array();
-                            while ($data = mysqli_fetch_assoc($result)) {
-                                $pill[] = $data;
-                            }
-                            //var_dump($pill);
-
-                            foreach ($pill as $pill) {
-                            if ($pill['status'] !== null) {
-                            echo '<div class="banned rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">';
-                            } else {
-                            echo '<div class="rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">';
-                            }
-                            echo '<img src="'; echo $pill['photo']; echo'"'; echo 'alt="Sunny A." class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">';
-                                echo '<div class="ml-2 mr-3">';
-                                    echo '<h5 class="m-0">';
-                                        echo $pill['name'];
-                                        echo '<small class="m-0 fw-300">';
-                                            echo $pill['prof'];
-                                        echo '</small>';
-                                    echo '</h5>';
-                                    echo '<a href="https://twitter.com/'; echo $pill['social']; echo '"'; echo' class="text-info fs-sm" target="_blank">'; echo $pill['social']; echo '</a> -
-                                    <a href="mailto:'; echo $pill['email']; echo '" class="text-info fs-sm" target="_blank" title="Contact'; echo $pill['name']; echo '"><i class="fal fa-envelope"></i></a>';
-                                echo '</div>';
-                            echo '</div>';
-                            }
-                            
-                            mysqli_close($link);
+                            $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+						    $opt = [
+						        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+						        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+						        PDO::ATTR_EMULATE_PREPARES   => false,
+						    ];
+						    $pdo = new PDO($dsn, $user, $pass, $opt);
+						    $stmt = $pdo->query('SELECT * FROM users');
                             ?>
+                            <?php foreach ($stmt as $pill) : ?>
+	                            <?php if ($pill['banned']) : ?>
+	                            <div class="banned rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
+	                            <?php else : ?>
+	                            <div class="rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
+	                            <?php endif ?>
+	                            <img src="<?php echo $pill['photo']; ?>" echo 'alt="Sunny A." class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
+	                                <div class="ml-2 mr-3">
+	                                    <h5 class="m-0">
+	                                        <?php echo $pill['name']; ?>
+	                                        <small class="m-0 fw-300">
+	                                            <?php echo $pill['prof']; ?>
+	                                        </small>
+	                                    </h5>
+	                                    <a href="https://twitter.com/<?php echo $pill['social']; ?>" class="text-info fs-sm" target="_blank"> <?php echo $pill['social']; ?></a> -
+	                                    <a href="mailto:';<?php echo $pill['email']; ?>" class="text-info fs-sm" target="_blank" title="Contact';<?php echo $pill['name']; ?>"><i class="fal fa-envelope"></i></a>
+	                                </div>
+	                            </div>
+							<?php endforeach ?>
                         </div>
                         </div>
                     </div>
