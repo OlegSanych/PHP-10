@@ -35,35 +35,10 @@
                         <div class="panel-content">
                             <div class="panel-content">
                                 <div class="form-group">
-                                    <?php
-                                    //Подключение к БД
-                                        $host = 'localhost';
-                                        $database = 'bd_my_task_9_10';
-                                        $user = 'root';
-                                        $password = '';
-                                    
-                                    if(isset($_POST['text'])){
-                                        $link = mysqli_connect($host, $user, $password, $database) or die("Ошибка " . mysqli_error($link));
-                                    // Экранирования символов для mysql
-                                        $text = htmlentities(mysqli_real_escape_string($link, $_POST['text']));
-                                    //Инициализация запроса на добавление в БД
-                                        $query ="INSERT INTO text9 VALUES(NULL, '$text')";
-                                    // Запрос на добавление в БД
-                                        $result = mysqli_query($link, $sql) or die("Ошибка " . mysqli_error($link)); 
-                                        if($result)
-                                        {
-                                            echo '<div class="alert alert-success fade show" role="alert">
-                                                Данные добавлены в базу данных!
-                                            </div>';
-                                        }
-                                    // Закрываем подключение к БД
-                                        mysqli_close($link);
-                                    }
-                                    ?>
-                                    <form method="POST">
+                                    <form action="text9.php" method="POST">
                                         <label class="form-label" for="simpleinput">Введите текст</label>
                                         <input type="text" name="text" id="simpleinput" class="form-control">
-                                        <button class="btn btn-success mt-3">Добавить</button>
+                                        <button class="btn btn-success mt-3" type="submit">Добавить</button>
                                     </form>
                                 </div>
                             </div>
