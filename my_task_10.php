@@ -1,6 +1,6 @@
 <?php 
 session_start();
-var_dump($_SESSION);
+//var_dump($_SESSION);
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,9 +39,11 @@ var_dump($_SESSION);
                         <div class="panel-content">
                             <div class="panel-content">
                                 <div class="form-group">
+                                <?php if (isset($_SESSION['message'])) : ?>
                                     <div class="alert alert-danger fade show" role="alert">
-                                        Запись уже существует!
+                                        <?php echo $_SESSION['message']; unset($_SESSION['message']); ?>
                                     </div>
+                                <?php endif ?>
                                     <form action="text10.php" method="POST">
                                         <label class="form-label" for="simpleinput">Введите текст</label>
                                         <input type="text" name="text" id="simpleinput" class="form-control">

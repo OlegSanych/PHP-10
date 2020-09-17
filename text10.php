@@ -12,6 +12,8 @@ $opt = [
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     PDO::ATTR_EMULATE_PREPARES   => false,
 ];
+
+session_start();
 $text = $_POST['text'];
 $pdo = new PDO($dsn, $user, $pass, $opt);
 
